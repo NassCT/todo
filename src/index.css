@@ -1,14 +1,136 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --background-color: #282c35;
+  --background-color-dark: #1e2128;
+  --background-color-darker: #16181d;
+  --paper-color: #333846;
+  --text-secondary-color: #8b94a0;
+  --text-primary-color: #ffffff;
+  --primary-color: #6d78ad;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--text-primary-color);
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body {
+  background-color: var(--background-color);
+  color: var(--text-primary-color);
+  font-family: "Roboto", sans-serif;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 300px;
+}
+
+.form-bg {
+  background-color: var(--paper-color);
+  color: var(--text-primary-color);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.formw {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  max-width: 100%;
+  margin-left: 5px;
+}
+
+h1 {
+  text-align: center;
+  color: var(--primary-color);
+}
+
+List {
+  list-style-type: none;
+  padding: 0;
+}
+
+List div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin: 15px;
+  background-color: var(--paper-color);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+List div.completed {
+  background-color: #4a4a4a;
+}
+
+label {
+  display: flex;
+  align-items: center;
+}
+
+span {
+  margin-top: 10px;
+  margin-left: 10px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: var(--text-primary-color);
+  padding: 8px;
+  margin-top: 10px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  max-width: 100%;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #5565a5;
+}
+
+img {
+  max-width: 20px;
+  max-height: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.trash {
+  margin: 9px 29px 1px 8px;
+}
+
+.checked {
+  margin: 9px 29px 1px 8px;
+}
+
+.spantext {
+  margin-left: 10px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  max-width: 50%;
+}
+@media screen and (max-width: 600px) {
+  body {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .form-bg {
+    padding: 10px;
+  }
+
+  List div {
+    padding: 10px;
+    margin: 10px;
+  }
+
+  button {
+    padding: 8px;
+    margin-top: 8px;
+  }
 }

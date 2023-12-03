@@ -1,42 +1,127 @@
 import { useState } from "react";
-import checkIcon from "/checkIcon.svg";
+import checkIcon from "/checked.svg";
 import trashIcon from "/trashIcon.svg";
+import uncheckedIcon from "/unchecked.svg";
 
-import "./App.css";
+/*=================== App Render =================== */
+
 function App() {
+  const [todos, setTodos] = useState([]);
+
+  const addTodo = (todoText) => {
+    setTodos([...todos, { text: todoText, id: Date.now(), completed: false }]);
+  };
+
+  const removeTodo = (todoId) => {
+    setTodos(todos.filter((todo) => todo.id !== todoId));
+  };
+
+  const toggleCompleted = (todoId) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
   return (
-    <div>
-      <Form />
-      
+    <div className="form-bg">
+      <h1>Todo List</h1>
+      <Form addTodo={addTodo} />
+      <Todo
+        todos={todos}
+        removeTodo={removeTodo}
+        toggleCompleted={toggleCompleted}
+      />
     </div>
   );
 }
 
-function Form() {
+/*=================== Forms =================== */
+
+function Form({ addTodo }) {
+  const [todoText, setTodoText] = useState("");
+
+  const handleInputChange = (e) => {
+    setTodoText(e.target.value);
+  };
+
+  const handleAddClick = () => {
+    if (todoText.trim() !== "") {
+      addTodo(todoText);
+      setTodoText("");
+    }
+  };
+
   return (
     <>
-      <input type="text" name="todo" id="todo" placeholder=""/> <Button />
+      <input
+        className="formw"
+        type="text"
+        name="todo"
+        id="todo"
+        placeholder=""
+        value={todoText}
+        onChange={handleInputChange}
+      />
+      <Button onClick={handleAddClick} />
     </>
   );
 }
 
-function Button() {
-  return <button>Add</button>;
+/*=================== Todo =================== */
+
+function Todo({ todos, removeTodo, toggleCompleted }) {
+  return (
+    <div>
+      <List
+        todos={todos}
+        removeTodo={removeTodo}
+        toggleCompleted={toggleCompleted}
+      />
+    </div>
+  );
 }
 
-function CheckI() {
+/*=================== Lists =================== */
+
+function List({ todos, removeTodo, toggleCompleted }) {
   return (
     <>
-      <img src={checkIcon} alt="CheckIcon" />
+      {todos.map((todo) => (
+        <div key={todo.id} className={todo.completed ? "completed" : ""}>
+          <label onClick={() => toggleCompleted(todo.id)}>
+            <CheckI checked={todo.completed} />
+            <span className="spantext">{todo.text}</span>
+            <TrashI onClick={() => removeTodo(todo.id)} />
+          </label>
+        </div>
+      ))}
     </>
   );
 }
 
-function TrashI() {
+/*=================== Buttons =================== */
+
+function Button({ onClick }) {
+  return <button onClick={onClick}>Add</button>;
+}
+
+/*=================== Icons =================== */
+
+function CheckI({ checked }) {
   return (
-    <>
-      <img src={trashIcon} alt="TrashIcon" />
-    </>
+    <img
+      className="checked"
+      src={checked ? checkIcon : uncheckedIcon}
+      alt="CheckIcon"
+    />
+  );
+}
+
+function TrashI({ onClick }) {
+  return (
+    <img className="trash" src={trashIcon} alt="TrashIcon" onClick={onClick} />
   );
 }
 
